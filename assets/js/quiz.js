@@ -238,24 +238,38 @@ restartBtn.addEventListener("click", restartQuiz);
 
 // Ajout du bouton indice uniquement pour medium et hard
 const hintBtn = document.createElement("button");
-hintBtn.textContent = "Indice";
+hintBtn.innerHTML = "💡"; // Utilisation d'une icône
 hintBtn.id = "hint-btn";
-hintBtn.className = "btn";
+hintBtn.title = "Afficher l'indice"; // Tooltip pour l'accessibilité
+
 const hintDiv = document.createElement("div");
 hintDiv.id = "hint-div";
-hintDiv.className = "hint";
-hintDiv.style.display = "none";
-questionScreen.appendChild(hintBtn);
+hintDiv.className = "hint-popup"; // Nouvelle classe pour le style
 questionScreen.appendChild(hintDiv);
 
-hintBtn.addEventListener("click", () => {
+hintBtn.addEventListener("click", (e) => {
   const q = questions[currentQuestionIndex];
   if (q.difficulty === "easy") {
-    hintDiv.textContent = "Pas d'indice pour les questions faciles.";
-  } else {
-    hintDiv.textContent = q.hint || "Pas d'indice disponible.";
+    return; // Ne rien faire si la question est facile
   }
-  hintDiv.style.display = "block";
+
+  const hintText = q.hint || "Aucun indice disponible pour cette question.";
+  hintDiv.textContent = hintText;
+
+  // --- DYNAMIC POSITIONING ---
+  const btnRect = e.currentTarget.getBoundingClientRect();
+  const screenRect = questionScreen.getBoundingClientRect();
+  const top = btnRect.bottom - screenRect.top + 8;
+  const left = btnRect.left - screenRect.left + btnRect.width / 2;
+  hintDiv.style.top = `${top}px`;
+  hintDiv.style.left = `${left}px`;
+  // --- END DYNAMIC POSITIONING ---
+
+  // Afficher le popup et le cacher après quelques secondes
+  hintDiv.classList.add("visible");
+  setTimeout(() => {
+    hintDiv.classList.remove("visible");
+  }, 4000); // L'indice reste visible 4 secondes
 });
 
 setText(bestScoreValue, bestScore);
@@ -277,7 +291,7 @@ function showQuestion() {
   clearInterval(timerId);
 
   const q = questions[currentQuestionIndex];
-  setText(questionText, q.text);
+  questionText.textContent = q.text;
   setText(currentQuestionIndexSpan, currentQuestionIndex + 1);
 
   // Update progress bar for questions
@@ -296,14 +310,9 @@ function showQuestion() {
   nextBtn.classList.add("hidden");
 
   // Affiche ou masque le bouton indice selon la difficulté
-  if (q.difficulty === "easy") {
-    hintBtn.style.display = "none";
-    hintDiv.style.display = "none";
-    hintDiv.textContent = "";
-  } else {
-    hintBtn.style.display = "inline-block";
-    hintDiv.style.display = "none";
-    hintDiv.textContent = "";
+  if (q.difficulty !== "easy") {
+    questionText.appendChild(document.createTextNode(" "));
+    questionText.appendChild(hintBtn);
   }
 
   // Reset timer bar
@@ -324,6 +333,7 @@ function showQuestion() {
       updateProgressBar("#timer-bar", timeLeft, q.timeLimit);
     },
     () => {
+      hintDiv.classList.remove("visible"); // Cacher l'indice si le temps est écoulé
       lockAnswers(answersDiv);
       markCorrectAnswer(answersDiv, q.correct); // Show correct answer if time runs out
       nextBtn.classList.remove("hidden");
@@ -350,6 +360,7 @@ function selectAnswer(index, btn) {
 function nextQuestion() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
+    hintDiv.classList.remove("visible"); // Cacher l'indice à la question suivante
     showQuestion();
   } else {
     endQuiz();

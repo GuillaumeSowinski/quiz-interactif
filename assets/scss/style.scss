@@ -376,13 +376,64 @@ p {
     font-size: 1rem;
     font-weight: 700;
     color: var(--secondary-color);
-    background: linear-gradient(
-      45deg,
-      var(--secondary-color),
-      var(--primary-color)
-    );
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-} 
+}
+
+/* --- 7. Hint Button & Popup --- */
+#hint-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-muted-color);
+  font-size: 1.2rem; /* Reduced size to better fit with text */
+  padding: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: inline-block; /* Allows it to sit within the text flow */
+  vertical-align: middle; /* Aligns the icon nicely with the text */
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.hint-popup {
+  position: absolute;
+  /* top and left are now set by JS */
+  transform: translateX(-50%); /* Center the popup on its arrow */
+  background-color: var(--surface-bg);
+  color: var(--text-color);
+  padding: 12px 18px;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--surface-border);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+  font-size: 0.9rem;
+  max-width: 250px;
+  text-align: center;
+  white-space: normal;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Arrow pointing up to the button */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--surface-bg) transparent;
+  }
+}
