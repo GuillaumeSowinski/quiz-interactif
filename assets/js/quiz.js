@@ -8,6 +8,7 @@ import {
   updateScoreDisplay,
   lockAnswers,
   markCorrectAnswer,
+  updateProgressBar,
 } from "./dom.js";
 import {
   loadFromLocalStorage,
@@ -224,7 +225,8 @@ const startBtn = getElement("#start-btn");
 const restartBtn = getElement("#restart-btn");
 
 const scoreText = getElement("#score-text");
-const timeLeftSpan = getElement("#time-left");
+const timerText = getElement("#timer-text");
+const timerBar = getElement("#timer-bar");
 
 const currentQuestionIndexSpan = getElement("#current-question-index");
 const totalQuestionsSpan = getElement("#total-questions");
@@ -272,13 +274,18 @@ function startQuiz() {
 }
 
 function showQuestion() {
-// ...existing code...
-
   clearInterval(timerId);
 
   const q = questions[currentQuestionIndex];
   setText(questionText, q.text);
   setText(currentQuestionIndexSpan, currentQuestionIndex + 1);
+
+  // Update progress bar for questions
+  updateProgressBar(
+    "#progress-bar",
+    currentQuestionIndex + 1,
+    questions.length
+  );
 
   answersDiv.innerHTML = "";
   q.answers.forEach((answer, index) => {
@@ -299,12 +306,26 @@ function showQuestion() {
     hintDiv.textContent = "";
   }
 
-  timeLeftSpan.textContent = q.timeLimit;
+  // Reset timer bar
+  if (timerBar) timerBar.style.width = "100%";
+
+  // Format initial timer text
+  const initialTime = q.timeLimit;
+  setText(timerText, `${initialTime} seconde${initialTime > 1 ? "s" : ""}`);
+
   timerId = startTimer(
     q.timeLimit,
-    (timeLeft) => setText(timeLeftSpan, timeLeft),
+    (timeLeft) => {
+      // Format timer text with plural handling
+      const timeString = `${timeLeft} seconde${timeLeft > 1 ? "s" : ""}`;
+      setText(timerText, timeString);
+
+      // Update timer progress bar
+      updateProgressBar("#timer-bar", timeLeft, q.timeLimit);
+    },
     () => {
       lockAnswers(answersDiv);
+      markCorrectAnswer(answersDiv, q.correct); // Show correct answer if time runs out
       nextBtn.classList.remove("hidden");
     }
   );

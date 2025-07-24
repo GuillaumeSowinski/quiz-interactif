@@ -26,3 +26,15 @@ export const markCorrectAnswer = (container, correctIndex) => {
     buttons[correctIndex].classList.add("correct");
   }
 };
+
+export const updateProgressBar = (
+  progressBarId,
+  currentValue,
+  maxValue
+) => {
+  const progressBar = getElement(progressBarId);
+  if (progressBar) {
+    const percentage = (currentValue / maxValue) * 100;
+    progressBar.style.width = `${percentage}%`;
+  }
+};
