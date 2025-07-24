@@ -21,6 +21,19 @@
   --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.05);
 }
 
+[data-theme="dark"] {
+  --secondary-color: #3498db; /* Bright blue */
+  --background-start: #0f172a; /* Midnight Blue */
+  --background-end: #1e293b; /* Softer blue */
+  --surface-bg: rgba(30, 41, 59, 0.7); /* Adjusted to the new background */
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --text-color: #ecf0f1; /* Light Grey text */
+  --text-muted-color: #bdc3c7; /* Silver */
+  --correct-bg: #27ae60;
+  --wrong-bg: #c0392b;
+  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
 
 /* --- 2. General Styles & Body --- */
 body {
@@ -37,6 +50,7 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 .main-logo {
@@ -46,6 +60,55 @@ body {
   user-select: none; /* Prevents the user from selecting the image */
   -webkit-user-drag: none; /* Prevents dragging */
 }
+
+/* --- Theme Toggle Button --- */
+#theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  z-index: 1000;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    font-size: 1.5rem;
+    position: absolute;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .sun-icon {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+
+  .moon-icon {
+    opacity: 0;
+    transform: translateY(100%) rotate(180deg);
+  }
+}
+
+[data-theme="dark"] #theme-toggle {
+  .sun-icon {
+    opacity: 0;
+    transform: translateY(-100%) rotate(180deg);
+  }
+
+  .moon-icon {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
 
 h1 {
   font-size: 3rem;
@@ -79,6 +142,7 @@ h1 {
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.3s ease;
   position: relative; /* Define positioning context for child elements */
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 #intro-screen,
@@ -160,7 +224,6 @@ button:active {
 }
 
 #start-btn:hover {
-  /* Keep the scale and shadow effect, but remove background change */
   box-shadow: 0 10px 30px -10px var(--primary-hover);
   transform: scale(1.1) translateY(-3px);
 }
@@ -200,6 +263,7 @@ button:active {
   text-transform: none;
   font-weight: 400;
   padding: 15px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 #answers button:hover {

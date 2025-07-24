@@ -236,6 +236,29 @@ startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", nextQuestion);
 restartBtn.addEventListener("click", restartQuiz);
 
+// --- THEME TOGGLE LOGIC ---
+const themeToggle = getElement("#theme-toggle");
+const body = document.body;
+const mainLogo = getElement(".main-logo");
+
+const applyTheme = (theme) => {
+  body.setAttribute("data-theme", theme);
+  mainLogo.src =
+    theme === "dark"
+      ? "../assets/img/QuizCampus-logo-dark.webp"
+      : "../assets/img/QuizCampus-logo.webp";
+  saveToLocalStorage("theme", theme);
+};
+
+const currentTheme = loadFromLocalStorage("theme", "light");
+applyTheme(currentTheme);
+
+themeToggle.addEventListener("click", () => {
+  const newTheme = body.getAttribute("data-theme") === "light" ? "dark" : "light";
+  applyTheme(newTheme);
+});
+// --- END THEME TOGGLE LOGIC ---
+
 // Ajout du bouton indice uniquement pour medium et hard
 const hintBtn = document.createElement("button");
 hintBtn.innerHTML = "💡"; // Utilisation d'une icône
