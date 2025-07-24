@@ -198,9 +198,26 @@ const hardQuestions = [
 ];
 
 // Génère la liste des questions à poser (ordre croissant de difficulté)
+// Fonction utilitaire pour mélanger un tableau
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Sélectionne n éléments aléatoires d'un tableau
+function pickRandom(array, n) {
+  return shuffleArray([...array]).slice(0, n);
+}
+
 function generateQuizQuestions() {
-  // Retourne toutes les questions dans l'ordre : faciles, moyennes, difficiles
-  return [...easyQuestions, ...mediumQuestions, ...hardQuestions];
+  // 3 easy, 4 medium, 3 hard
+  const easy = pickRandom(easyQuestions, 3);
+  const medium = pickRandom(mediumQuestions, 4);
+  const hard = pickRandom(hardQuestions, 3);
+  return [...easy, ...medium, ...hard];
 }
 
 let questions = []; // Initialisé vide
