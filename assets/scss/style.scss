@@ -434,6 +434,22 @@ p {
   color: var(--text-muted-color);
 }
 
+#perfect-score-message {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInSlideUp 0.5s ease-out forwards;
+}
+
 #best-score-value,
 #best-score-end {
   font-weight: 700;
@@ -468,6 +484,18 @@ p {
   100% {
     transform: scale(1.05);
     box-shadow: 0 8px 25px -8px var(--primary-hover);
+  }
+}
+
+/* --- Keyframe for Perfect Score Message --- */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

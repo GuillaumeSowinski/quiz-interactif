@@ -15,6 +15,7 @@ import {
   loadFromLocalStorage,
   saveToLocalStorage,
   startTimer,
+  triggerConfetti,
 } from "./utils.js";
 import { translations } from "./i18n.js";
 
@@ -283,7 +284,7 @@ const hardQuestions = [
       fr: "Qui a écrit 'Voyage au centre de la Terre' ?",
       en: "Who wrote 'Journey to the Center of the Earth'?",
     },
-    answers: { fr: ["Proust", "Vernes", "Ferry", "Flaubert"], en: ["Proust", "Vernes", "Ferry", "Flaubert"] },
+    answers: { fr: ["Proust", "Verne", "Ferry", "Flaubert"], en: ["Proust", "Verne", "Ferry", "Flaubert"] },
     correct: 1,
     timeLimit: 25,
     difficulty: "hard",
@@ -372,6 +373,8 @@ const scoreText = getElement("#score-text");
 const timerText = getElement("#timer-text");
 const timerBar = getElement("#timer-bar");
 
+const perfectScoreMessage = getElement("#perfect-score-message");
+
 const currentQuestionIndexSpan = getElement("#current-question-index");
 const totalQuestionsSpan = getElement("#total-questions");
 
@@ -426,8 +429,8 @@ function applyTheme(theme) {
   body.dataset.theme = theme;
   mainLogo.src =
     theme === "dark"
-      ? "../assets/img/QuizCampus-logo-dark.webp"
-      : "../assets/img/QuizCampus-logo.webp";
+      ? "assets/img/QuizCampus-logo-dark.webp"
+      : "assets/img/QuizCampus-logo.webp";
   saveToLocalStorage("theme", theme);
 }
 
@@ -570,6 +573,11 @@ function endQuiz() {
     saveToLocalStorage("bestScore", bestScore);
   }
 
+  // Ajout de l'animation de confettis pour un score parfait
+  if (score === questions.length) {
+    triggerConfetti();
+  }
+
   updateResultScreen();
 }
 
@@ -578,6 +586,13 @@ function updateResultScreen() {
   const scoreString = translations[currentLang]["score-text"](score, questions.length);
   setText(scoreText, scoreString);
   setText(bestScoreEnd, bestScore);
+
+  // Affiche ou masque le message de score parfait
+  if (score === questions.length) {
+    perfectScoreMessage.classList.remove("hidden");
+  } else {
+    perfectScoreMessage.classList.add("hidden");
+  }
 
   const restartBtnElem = getElement("#restart-btn");
 
@@ -679,4 +694,6 @@ function restartQuiz() {
   hideElement(resultScreen);
   showElement(introScreen);
   setText(bestScoreValue, bestScore);
+  // S'assure que le message de score parfait est masqué
+  perfectScoreMessage.classList.add("hidden");
 }

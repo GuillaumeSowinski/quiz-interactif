@@ -58,6 +58,7 @@
     <div id="result-screen" style="display: none">
       <h2 data-i18n="final-result-title">Résultat final</h2>
       <p id="score-text"></p>
+      <p id="perfect-score-message" class="hidden" data-i18n="perfect-score-message"></p>
       <div class="best-score-badge">
         <span data-i18n="best-score-label">🏆 Meilleur Score</span>
         <strong id="best-score-end">0</strong>
@@ -66,5 +67,6 @@
     </div>
 
     <script type="module" src="./assets/js/quiz.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   </body>
 </html>

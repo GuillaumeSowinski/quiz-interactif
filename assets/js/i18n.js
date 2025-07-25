@@ -21,7 +21,8 @@ export const translations = {
     "no-answer": "Aucune réponse",
     "your-answer": "Ta réponse",
     "correct-answer": "Bonne réponse",
-    "hint-info": "Astuce : Certaines questions incluent un 💡 indice."
+    "hint-info": "Astuce : Certaines questions incluent un 💡 indice.",
+    "perfect-score-message": "🎉 Parfait ! 🎉"
   },
   en: {
     "theme-toggle-title": "Toggle theme",
@@ -44,6 +45,7 @@ export const translations = {
     "no-answer": "No answer",
     "your-answer": "Your answer",
     "correct-answer": "Correct answer",
-    "hint-info": "Tip : Some questions include a 💡 hint."
+    "hint-info": "Tip : Some questions include a 💡 hint.",
+    "perfect-score-message": "🎉 Perfect! 🎉"
   }
 }; 
