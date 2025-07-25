@@ -53,42 +53,67 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-.main-logo {
-  max-width: 350px; /* Adjust size as needed */
-  height: auto;
-  margin-bottom: 2rem;
-  user-select: none; /* Prevents the user from selecting the image */
-  -webkit-user-drag: none; /* Prevents dragging */
+.header-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1000;
 }
 
-/* --- Theme Toggle Button --- */
-#theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+#theme-toggle,
+#language-toggle {
+  position: relative;
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-md);
+  color: var(--text-muted-color);
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-size: 1.5rem;
+  line-height: 1;
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background-color: var(--surface-bg);
-  border: 1px solid var(--surface-border);
-  box-shadow: var(--shadow-md); /* ombre plus marquée */
-  cursor: pointer;
-  z-index: 1000;
-  overflow: hidden;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  padding: 0;
+  overflow: hidden;
+  /* Règle commune pour cacher les enfants (drapeaux) par défaut */
+  /* Style spécifique pour les icônes (animation) */
+  /* Style spécifique pour les images SVG (drapeaux) */
 }
-#theme-toggle:hover {
-  transform: scale(1.1);
+#theme-toggle .lang-fr,
+#theme-toggle .lang-en,
+#language-toggle .lang-fr,
+#language-toggle .lang-en {
+  display: none;
 }
-#theme-toggle .icon {
+#theme-toggle .icon,
+#language-toggle .icon {
   font-size: 1.7rem;
   position: absolute;
   transition: transform 0.4s ease, opacity 0.4s ease;
+  /* Les icônes restent affichées, gérées par opacity/transform */
 }
+#theme-toggle img.lang-fr,
+#theme-toggle img.lang-en,
+#language-toggle img.lang-fr,
+#language-toggle img.lang-en {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#theme-toggle:hover,
+#language-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* On définit l'état initial (light mode) directement */
 #theme-toggle .sun-icon {
   opacity: 1;
   transform: translateY(0) rotate(0deg);
@@ -98,15 +123,34 @@ body {
   transform: translateY(100%) rotate(180deg);
 }
 
-[data-theme=dark] #theme-toggle .sun-icon {
+/* On inverse pour le dark mode */
+body[data-theme=dark] #theme-toggle .sun-icon {
   opacity: 0;
   transform: translateY(-100%) rotate(180deg);
 }
-[data-theme=dark] #theme-toggle .moon-icon {
+body[data-theme=dark] #theme-toggle .moon-icon {
   opacity: 1;
   transform: translateY(0) rotate(0deg);
 }
 
+body[data-lang=fr] #language-toggle .lang-fr {
+  display: inline;
+}
+
+body[data-lang=en] #language-toggle .lang-en {
+  display: inline;
+}
+
+.main-logo {
+  max-width: 350px;
+  height: auto;
+  margin-bottom: 2rem;
+  user-select: none; /* Prevents the user from selecting the image */
+  -webkit-user-drag: none; /* Prevents dragging */
+}
+
+/* --- Theme Toggle Button --- */
+/* This section is now consolidated into .header-controls above and can be removed or left empty */
 h1 {
   font-size: 3rem;
   font-weight: 700;

@@ -38,3 +38,19 @@ export const updateProgressBar = (
     progressBar.style.width = `${percentage}%`;
   }
 };
+
+export const applyTranslations = (translationMap) => {
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    const target = element.dataset.i18nTarget;
+
+    if (translationMap[key]) {
+      if (target === "title") {
+        element.setAttribute("title", translationMap[key]);
+      } else {
+        // Comportement par défaut pour les autres éléments (p, h2, etc.)
+        element.textContent = translationMap[key];
+      }
+    }
+  });
+};
