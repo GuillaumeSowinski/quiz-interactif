@@ -16,7 +16,11 @@ export const translations = {
     "no-hint-available": "Aucun indice disponible pour cette question.",
     "score-text": (score, total) => `Votre score : ${score} / ${total}`,
     "share-text": (score, total) => `J'ai obtenu ${score}/${total} sur QuizCampus ! Viens essayer toi aussi !`,
-    "timer-text": (timeLeft) => `${timeLeft} seconde${timeLeft > 1 ? "s" : ""}`
+    "timer-text": (timeLeft) => `${timeLeft} seconde${timeLeft > 1 ? "s" : ""}`,
+    "recap-title": "Récapitulatif de tes réponses :",
+    "no-answer": "Aucune réponse",
+    "your-answer": "Ta réponse",
+    "correct-answer": "Bonne réponse"
   },
   en: {
     "theme-toggle-title": "Toggle theme",
@@ -34,6 +38,10 @@ export const translations = {
     "no-hint-available": "No hint available for this question.",
     "score-text": (score, total) => `Your score: ${score} / ${total}`,
     "share-text": (score, total) => `I got ${score}/${total} on QuizCampus! Come and try it too!`,
-    "timer-text": (timeLeft) => `${timeLeft} second${timeLeft > 1 ? "s" : ""}`
+    "timer-text": (timeLeft) => `${timeLeft} second${timeLeft > 1 ? "s" : ""}`,
+    "recap-title": "Summary of your answers:",
+    "no-answer": "No answer",
+    "your-answer": "Your answer",
+    "correct-answer": "Correct answer"
   }
 }; 

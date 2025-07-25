@@ -149,8 +149,6 @@ body[data-lang=en] #language-toggle .lang-en {
   -webkit-user-drag: none; /* Prevents dragging */
 }
 
-/* --- Theme Toggle Button --- */
-/* This section is now consolidated into .header-controls above and can be removed or left empty */
 h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -561,4 +559,72 @@ p {
   color: var(--primary-color);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Recap List --- */
+#recap-div {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+#recap-div h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.recap-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recap-item {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: var(--border-radius-md);
+  padding: 1rem 1.5rem;
+  border-left: 5px solid;
+  transition: all 0.3s ease;
+}
+
+.recap-item.recap-correct {
+  border-left-color: var(--correct-bg);
+}
+
+.recap-item.recap-wrong {
+  border-left-color: var(--wrong-bg);
+}
+
+.recap-question-text {
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.recap-answer-details p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted-color);
+}
+
+.recap-label {
+  font-weight: 500;
+}
+
+.user-answer-recap .answer-text {
+  font-style: italic;
+}
+
+.recap-item.recap-wrong .user-answer-recap .answer-text {
+  color: var(--wrong-bg);
+  text-decoration: line-through;
+}
+
+.correct-answer-recap .answer-text {
+  color: var(--correct-bg);
+  font-weight: 600;
 }
