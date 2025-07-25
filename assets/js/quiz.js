@@ -426,8 +426,8 @@ function applyTheme(theme) {
   body.dataset.theme = theme;
   mainLogo.src =
     theme === "dark"
-      ? "../assets/img/QuizCampus-logo-dark.webp"
-      : "../assets/img/QuizCampus-logo.webp";
+      ? "./assets/img/QuizCampus-logo-dark.webp"
+      : "./assets/img/QuizCampus-logo.webp";
   saveToLocalStorage("theme", theme);
 }
 
