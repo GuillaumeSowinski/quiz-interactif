@@ -20,7 +20,8 @@ export const translations = {
     "recap-title": "Récapitulatif de tes réponses :",
     "no-answer": "Aucune réponse",
     "your-answer": "Ta réponse",
-    "correct-answer": "Bonne réponse"
+    "correct-answer": "Bonne réponse",
+    "hint-info": "Astuce : Certaines questions incluent un 💡 indice."
   },
   en: {
     "theme-toggle-title": "Toggle theme",
@@ -42,6 +43,7 @@ export const translations = {
     "recap-title": "Summary of your answers:",
     "no-answer": "No answer",
     "your-answer": "Your answer",
-    "correct-answer": "Correct answer"
+    "correct-answer": "Correct answer",
+    "hint-info": "Tip : Some questions include a 💡 hint."
   }
 }; 
