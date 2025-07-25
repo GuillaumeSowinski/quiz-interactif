@@ -427,6 +427,7 @@ function endQuiz() {
     shareDiv.style.marginTop = "2em";
     shareDiv.style.display = "flex";
     shareDiv.style.gap = "1em";
+    shareDiv.style.justifyContent = "center";
     resultScreen.appendChild(shareDiv);
   }
   shareDiv.innerHTML = "";
