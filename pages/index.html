@@ -6,32 +6,63 @@
     <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
-    <h1>Quiz Dynamique</h1>
+    <div class="header-controls">
+      <button id="theme-toggle" data-i18n="theme-toggle-title" data-i18n-target="title" title="Basculer le thème">
+        <span class="icon sun-icon">☀️</span>
+        <span class="icon moon-icon">🌙</span>
+      </button>
+      <button id="language-toggle" data-i18n="lang-toggle-title" data-i18n-target="title" title="Changer de langue">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Français" class="lang-fr" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="lang-en" />
+      </button>
+    </div>
+
+    <img
+      src="../assets/img/QuizCampus-logo.webp"
+      alt="QuizCampus Logo"
+      class="main-logo"
+    />
 
     <div id="intro-screen">
-      <p class="notice">
+      <p class="notice" data-i18n="intro-notice">
         Testez vos connaissances en quelques questions chronométrées !
       </p>
-      <p>Meilleur score : <span id="best-score-value">0</span></p>
-      <button id="start-btn">Commencer le quiz</button>
+      <div class="best-score-badge">
+        <span data-i18n="best-score-label">🏆 Meilleur Score</span>
+        <strong id="best-score-value">0</strong>
+      </div>
+      <p class="hint-info-notice" data-i18n="hint-info">Astuce : Certaines questions incluent un indice 💡 !</p>
+      <button id="start-btn" data-i18n="start-button">Commencer le quiz</button>
     </div>
 
     <div id="question-screen" style="display: none">
-      <div id="progress">
-        Question <span id="current-question-index"></span> /
-        <span id="total-questions"></span>
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+        <div id="progress-text">
+          <span id="current-question-index"></span> /
+          <span id="total-questions"></span>
+        </div>
       </div>
+
       <p id="question-text"></p>
       <div id="answers"></div>
-      <div id="timer-div">Temps restant : <span id="time-left">0</span>s</div>
-      <button id="next-btn" class="hidden">Question suivante</button>
+
+      <div id="timer-container">
+        <div id="timer-bar"></div>
+        <div id="timer-text"></div>
+      </div>
+
+      <button id="next-btn" class="hidden" data-i18n="next-button">Question suivante</button>
     </div>
 
     <div id="result-screen" style="display: none">
-      <h2>Résultat final</h2>
+      <h2 data-i18n="final-result-title">Résultat final</h2>
       <p id="score-text"></p>
-      <p>Meilleur score : <span id="best-score-end">0</span></p>
-      <button id="restart-btn">Recommencer</button>
+      <div class="best-score-badge">
+        <span data-i18n="best-score-label">🏆 Meilleur Score</span>
+        <strong id="best-score-end">0</strong>
+      </div>
+      <button id="restart-btn" data-i18n="restart-button">Recommencer</button>
     </div>
 
     <script type="module" src="../assets/js/quiz.js"></script>
