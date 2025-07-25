@@ -418,6 +418,50 @@ function endQuiz() {
     saveToLocalStorage("bestScore", bestScore);
   }
   setText(bestScoreEnd, bestScore);
+
+  // --- PARTAGE RESEAUX SOCIAUX ---
+  let shareDiv = document.getElementById("share-div");
+  if (!shareDiv) {
+    shareDiv = document.createElement("div");
+    shareDiv.id = "share-div";
+    shareDiv.style.marginTop = "2em";
+    shareDiv.style.display = "flex";
+    shareDiv.style.gap = "1em";
+    resultScreen.appendChild(shareDiv);
+  }
+  shareDiv.innerHTML = "";
+
+  const quizUrl = encodeURIComponent(window.location.href);
+  const quizText = encodeURIComponent(`J'ai obtenu ${score}/${questions.length} sur QuizCampus ! Viens essayer toi aussi !`);
+
+  // X (Twitter)
+  const xBtn = document.createElement("button");
+  xBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg' alt='X' style='width:24px;height:24px;vertical-align:middle;'> X";
+  xBtn.className = "btn share-btn";
+  xBtn.onclick = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${quizText}&url=${quizUrl}`, "_blank");
+  };
+  shareDiv.appendChild(xBtn);
+
+  // Instagram (pas de partage direct, propose de copier le texte)
+  const instaBtn = document.createElement("button");
+  instaBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg' alt='Instagram' style='width:24px;height:24px;vertical-align:middle;'> Instagram";
+  instaBtn.className = "btn share-btn";
+  instaBtn.onclick = () => {
+    navigator.clipboard.writeText(`J'ai obtenu ${score}/${questions.length} sur QuizCampus ! ${window.location.href}`);
+    alert("Texte copié ! Partage-le sur Instagram dans ta story ou ta bio.");
+  };
+  shareDiv.appendChild(instaBtn);
+
+  // Facebook
+  const fbBtn = document.createElement("button");
+  fbBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg' alt='Facebook' style='width:24px;height:24px;vertical-align:middle;'> Facebook";
+  fbBtn.className = "btn share-btn";
+  fbBtn.onclick = () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${quizUrl}&quote=${quizText}`, "_blank");
+  };
+  shareDiv.appendChild(fbBtn);
+  // --- FIN PARTAGE ---
 }
 
 function restartQuiz() {
