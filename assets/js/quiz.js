@@ -343,8 +343,10 @@ function generateQuizQuestions() {
   return [...easy, ...medium, ...hard];
 }
 
-// --- STATE MANAGEMENT ---
-let questions = [];
+
+let questions = []; // Initialisé vide
+let userAnswers = []; // Stocke les réponses de l'utilisateur
+
 let currentQuestionIndex = 0;
 let score = 0;
 let bestScore = loadFromLocalStorage("bestScore", 0);
@@ -480,6 +482,8 @@ function startQuiz() {
   questions = generateQuizQuestions();
   setText(totalQuestionsSpan, questions.length);
 
+  userAnswers = []; // Reset les réponses utilisateur
+
   showQuestion();
 }
 
@@ -541,6 +545,9 @@ function selectAnswer(index, btn) {
   markCorrectAnswer(answersDiv, q.correct);
   lockAnswers(answersDiv);
   nextBtn.classList.remove("hidden");
+
+  // Enregistre la réponse de l'utilisateur
+  userAnswers[currentQuestionIndex] = index;
 }
 
 function nextQuestion() {
@@ -612,6 +619,41 @@ function endQuiz() {
   };
   shareDiv.appendChild(fbBtn);
   // --- FIN PARTAGE ---
+
+  // --- RECAP QUESTIONS/REPONSES ---
+  let recapDiv = document.getElementById("recap-div");
+  const restartBtn = document.getElementById("restart-btn");
+  if (!recapDiv) {
+    recapDiv = document.createElement("div");
+    recapDiv.id = "recap-div";
+    // Place le recap juste après le bouton recommencer
+    resultScreen.insertBefore(recapDiv, restartBtn.nextSibling);
+  } else {
+    // Replace recapDiv to always be after restartBtn
+    if (recapDiv.previousSibling !== restartBtn) {
+      resultScreen.insertBefore(recapDiv, restartBtn.nextSibling);
+    }
+  }
+  // Titre du récap selon la langue
+  recapDiv.innerHTML = `<h3>${translations[currentLang]["recap-title"] || "Récapitulatif de tes réponses :"}</h3>`;
+  const recapList = document.createElement("ol");
+  questions.forEach((q, i) => {
+    const userIdx = userAnswers[i];
+    // Affiche la réponse utilisateur dans la bonne langue ou "Aucune réponse"
+    const userAnswer = (userIdx !== undefined && userIdx !== null)
+      ? q.answers[currentLang][userIdx]
+      : `<em>${translations[currentLang]["no-answer"] || "Aucune réponse"}</em>`;
+    const correctAnswer = q.answers[currentLang][q.correct];
+    const isCorrect = userIdx === q.correct;
+    const li = document.createElement("li");
+    // Utilise la traduction pour "Ta réponse" et "Bonne réponse"
+    const yourAnswerLabel = translations[currentLang]["your-answer"] || (currentLang === "en" ? "Your answer" : "Ta réponse");
+    const correctAnswerLabel = translations[currentLang]["correct-answer"] || (currentLang === "en" ? "Correct answer" : "Bonne réponse");
+    li.innerHTML = `<strong>${q.text[currentLang]}</strong><br>${yourAnswerLabel} : <span style="color:${isCorrect ? 'green' : 'red'}">${userAnswer}</span><br>${correctAnswerLabel} : <span style="color:green">${correctAnswer}</span>`;
+    recapList.appendChild(li);
+  });
+  recapDiv.appendChild(recapList);
+  // --- FIN RECAP ---
 }
 
 function restartQuiz() {
