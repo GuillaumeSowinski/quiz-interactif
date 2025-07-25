@@ -16,3 +16,7 @@
 
 ### Corrigé
 
+## [1.0.1] - 2025-07-25
+
+### Corrigé
+- Fix sur mise en prod déplacement de index.html à la racine du dossier.

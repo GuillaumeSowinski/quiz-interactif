@@ -8,7 +8,7 @@ Un quiz interactif en HTML/CSS/JS permettant :
 
 ## Version
 
-- Version : 1.0.0
+- Version : 1.0.1
 - Date : 25/07/2025
 - Équipe : QuizCampus
 
