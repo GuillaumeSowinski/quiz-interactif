@@ -545,3 +545,37 @@ p {
     border-color: transparent transparent var(--surface-bg) transparent;
   }
 }
+
+/* --- Share Buttons --- */
+#share-div {
+  margin-top: 2.5rem; /* Adds space above the buttons */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.share-btn {
+  background-color: var(--surface-bg);
+  color: var(--text-muted-color);
+  border: 1px solid var(--surface-border);
+  text-transform: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.share-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.share-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}

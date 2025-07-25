@@ -582,9 +582,9 @@ function endQuiz() {
 
   // X (Twitter)
   const xBtn = document.createElement("button");
-  xBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg' alt='X' style='width:24px;height:24px;vertical-align:middle;'> X";
+  xBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg' alt='X'> X";
   xBtn.title = translations[currentLang]["share-on-x"];
-  xBtn.className = "btn share-btn";
+  xBtn.className = "share-btn";
   xBtn.onclick = () => {
     window.open(`https://twitter.com/intent/tweet?text=${quizText}&url=${quizUrl}`, "_blank");
   };
@@ -592,9 +592,9 @@ function endQuiz() {
 
   // Instagram
   const instaBtn = document.createElement("button");
-  instaBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg' alt='Instagram' style='width:24px;height:24px;vertical-align:middle;'> Instagram";
+  instaBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg' alt='Instagram'> Instagram";
   instaBtn.title = translations[currentLang]["share-on-instagram"];
-  instaBtn.className = "btn share-btn";
+  instaBtn.className = "share-btn";
   instaBtn.onclick = () => {
     // Use translation function for share text
     navigator.clipboard.writeText(translations[currentLang]["share-text"](score, questions.length) + ` ${window.location.href}`);
@@ -604,9 +604,9 @@ function endQuiz() {
 
   // Facebook
   const fbBtn = document.createElement("button");
-  fbBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg' alt='Facebook' style='width:24px;height:24px;vertical-align:middle;'> Facebook";
+  fbBtn.innerHTML = "<img src='https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg' alt='Facebook'> Facebook";
   fbBtn.title = translations[currentLang]["share-on-facebook"];
-  fbBtn.className = "btn share-btn";
+  fbBtn.className = "share-btn";
   fbBtn.onclick = () => {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${quizUrl}&quote=${quizText}`, "_blank");
   };
